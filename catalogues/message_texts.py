@@ -1,20 +1,68 @@
 # Text messages templates
+from sre_compile import isstring
+
 
 class MessageTexts:
-    START_MESSAGE = "Здравствуйте! Я - бот Telegram.\n" \
-                    "Это сообщение выводится любому пользователю, который нажмёт команду /start"
+    START_MESSAGE = "Здравствуйте!\nБлагодарим Вас за обращение в наш телеграм бот!\n" \
+                    "Пожалуйста, воспользуйтесь кнопками меню, чтобы мы оперативно " \
+                    "решили вашу проблему."
 
-    TERMS_MESSAGE = "Thank you for shopping with our demo bot. We hope you like your new time machine!\n" \
-                    "1. If your time machine was not delivered on time, please rethink your concept " \
-                    "of time and try again.\n" \
-                    "2. If you find that your time machine is not working, kindly contact our future " \
-                    "service workshops on Trappist-1e." \
-                    " They will be accessible anywhere between May 2075 and November 4000 C.E.\n" \
-                    "3. If you would like a refund, kindly apply for one yesterday and we will have " \
-                    "sent it to you immediately."
-    PURCHASE_MESSAGE = "Real cards won't work with me, no money will be debited from your account." \
-                       " Use this test card number to pay for your Time Machine: \n<code>4242 4242 4242 4242</code>" \
-                       "\n\nThis is your demo invoice:"
-    PAYMENT_SUCCESS = "Hoooooray! Thanks for payment! We will proceed your order for <code>{} {}</code> " \
-                      "as fast as possible! " \
-                      "Stay in touch.\n\nUse /buy again to get a Time Machine for your friend!"
+    MAIN_COMPLAIN_MESSAGE = ("Мы сожалеем, что что-то пошло не так! "
+                             "Пожалуйста, выберите характер вашей проблемы.")
+    COMPLAIN_OFFER_MSG = "Пожалуйста, укажите, какое решение вы хотите получить?"
+    COMPLAIN_TEXT_REQUEST_MSG = "Пожалуйста, опишите развёрнуто вашу проблему ответным сообщением."
+
+    REFUND_REQUEST_MSG = "Пришлите, пожалуйста, время заказа и вид напитка одним сообщением."
+    PART_REFUND_REQ_MSG = "Пришлите, пожалуйста, одним сообщением время заказа, " \
+                          "вид напитка и что именно вам не понравилось?"
+
+    DONATION_MSG = "Спасибо! Вы прекрасны!"
+
+    COMPLAIN_ACCEPT_MSG = ("Ваше обращение принято в работу. Пожалуйта, ожидайте.\n"
+                           "Наши операторы свяжутся с вами при первой возможности!")
+
+    MAIN_SUGGESTION_MSG = "Мы всегда рады конструктивным предложениям!\n" \
+                          "Пожалуйста, напишите развёрнуто Ваше предложение."
+
+    FEEDBACK_ACCEPT_MSG = "Благодарим за обратную связь!\nС радостью примем к сведению!"
+    THANK_YOU_MSG = "Спасибо! Мы с вами свяжемся!"
+
+    REFUND_CONFIRMED_MSG = "Оператор утвердил вашу заявку.\n" \
+                           "Пожалуйста, ожидайте возврата средств."
+    REFUND_DECLINED_MSG = "Нам очень жал, но оператор отклонил вашу заявку.\n" \
+                          "Мы можем вам ещё чем-то помочь?"
+
+    REQUEST_CONTACT_MSG = "Пожалуйста, оставьте Ваши контакты и мы с вами свяжемся!"
+
+    NO_BUTTONS_PRESSED_MSG = "Пожалуйста, для взаимодействия с ботом воспользуйтесь кнопками меню."
+
+    RETURN_BTN_MESSAGE = "Возврат в основное меню.\n" \
+                         "Пожалуйста, воспользуйтесь кнопками меню, чтобы мы оперативно " \
+                         "решили вашу проблему."
+    TECH_SUPPORT_MESSAGE = ("Пользователь t.me/{id} {first_name} {last_name}\n"
+                            "@{nickname}\n"
+                            "Номер телефона: {phone_number} \n"
+                            "Запрашивает: \"{reply_command}\"\n"
+                            "Комментарий: \"{comment}\"")
+
+    USER_SUGGEST_MSG = "*Получена обратная связь от пользователя:*\n"
+    PARTNERSHIP_NOTIFY_MSG = "Пользователя интересует сотрудничество. Пожалуйста, выйдите на связь."
+
+    STAFF_REFUND_CONFIRMED_MSG = "\n*Оператор @{} подтвердил возврат средств пользователю.*"
+    STAFF_REFUND_DECLINED_MSG = "\n*Оператор @{} отклонил возврат средств пользователю.*"
+
+    BOT_GROUP_CONFIRM_MSG = "Подтверждение получено. Бот добавлен в группу."
+    BOT_GROUP_DECLINE_MSG = "Получен отказ. Бот удалён из группы."
+
+
+    #PURCHASE_MESSAGE = "Сообщение при инициации покупки."
+    #PAYMENT_SUCCESS = "Сообщение об успешном платеже."
+
+    @staticmethod
+    def get_const_list():
+        class_consts = MessageTexts.__dict__.values()
+        public_vars = []
+        for i in class_consts:
+            if isstring(i) and not i.startswith('_'):
+                public_vars.append(i)
+        return public_vars

@@ -11,6 +11,7 @@ LOG_LEVEL = logging.DEBUG
 BASE_DIR = Path(__file__).parent.resolve()
 load_dotenv(os.path.join(BASE_DIR, '.env'))
 TOKEN = os.getenv("TOKEN")
+BOT_ID = int(str(TOKEN)[0:str(TOKEN).find(":")])
 
 DB_STRING = 'sqlite:///test.db'
 #     URL.create(

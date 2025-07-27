@@ -9,4 +9,4 @@ class AdminFilter(SimpleCustomFilter):
     key = 'admin'
 
     def check(self, message):
-        return Admin.is_admin(message.chat.id)
+        return Admin.is_admin(message.user.id)
