@@ -24,6 +24,12 @@ def command_clean_handler(message: Message, bot: TeleBot):
                      reply_markup=ReplyKeyboardRemove(),
                      parse_mode='markdown')
 
+
+def command_my_id_handler(message: Message, bot: TeleBot):
+    bot.send_message(message.chat.id, f"Ваш ID Telegram: `{message.chat.id}`",
+                     reply_markup=ReplyKeyboardRemove(),
+                     parse_mode='markdown')
+
 def check_allowed_groups_handler(chat_member: ChatMemberUpdated, bot: TeleBot):
     # Проверяет на добавление бота в группу и направляет запрос подтверждения владельцу.
     if (BOT_ID == chat_member.new_chat_member.user.id
@@ -54,6 +60,7 @@ def chat_join_confrim_handler(call: CallbackQuery, bot: TeleBot):
 
 def register_core_handlers(bot: TeleBot):
     bot.register_message_handler(command_start, commands=['start'], pass_bot=True, chat_types=['private'])
+    bot.register_message_handler(command_my_id_handler, commands=['my_id'], pass_bot=True, chat_types=['private'])
     bot.register_message_handler(command_clean_handler, commands=['clean'], pass_bot=True, chat_types=['group'])
     bot.register_my_chat_member_handler(check_allowed_groups_handler, chat_types="group", pass_bot=True)
     bot.register_callback_query_handler(chat_join_confrim_handler, func=None,

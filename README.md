@@ -1,9 +1,17 @@
-# Service desk bot for an automatic coffe shop
-Helps customers to communicate with service desk via Telegram
+# Бот сервис-деска для автоматической (роботизированной) кофе-точки
+_Сделан по заказу Cyber Coffe (by MindRobot)_
 
-Use `pip install -r requirements.txt` to install basic required packages
+Организует взаимодействие пользователей со службой поддержки через Телеграм
 
-Do not forget to create .env file in bot directory with bot TOKEN data as:
-`export TOKEN=your-bot-token-key`
+Порядок развёртки:
+1. Скопируйте файлы репозитория в каталог на ваш сервер\пк
+2. Создайте виртуальное окружение используя команду `python -m venv venv`
+3. В корневом каталоге с файлами проекта (там же, где находится main.py) создайте файл '.env', 
+   который будет использоваться виртуальным окружением для получения токена бота
+4. В файле .env добавьте строку следующего формата: `export TOKEN=your-bot-token-key`
+5. Запустите виртуальное окружение перед установкой пакетов командой `source venv/bin/activate` 
+6. Используйте `pip install -r requirements.txt` чтобы установить необходимые пакеты
+7. Чтобы бот признал в вас хозяина при взаимодействии с ним, пропишите в файл allowed_admins.json ваш ID Telegram
+8. Перед запуском бота в боевом режиме крайне рекомендуется изменить уровень логирования в файле _config.py_ на `ERROR`
 
-It is highly recommended to change logging level in config.py before running bot for production purposes.
+При возникновении вопросов обращайтесь @KovalevKP
