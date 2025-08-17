@@ -20,7 +20,7 @@ class ButtonTexts:
 class IssueButtons:
     DRINK_NOT_PROVIDED_BNT = "Не выдался напиток"
     WRONG_DRINK_BTN = "Напиток приготовлен некорректно"
-    ANOTHER_ISSUE_BTN = "Другая пролема"
+    ANOTHER_ISSUE_BTN = "Другая проблема"
 
 class SolutionButtons:
     REFUND_BTN = "Хочу вернуть деньги"

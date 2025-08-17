@@ -9,6 +9,7 @@ from models.users_model import Admin
 from models.allowed_chats_model import AllowedGroup
 from filters.chat_confirmation_filter import chat_template_data
 from keyboards.bot_admin_keyboards import get_admin_confirmation
+from utils.bot_logger import log_path
 
 
 def command_start(message: Message, bot: TeleBot):
@@ -29,6 +30,11 @@ def command_my_id_handler(message: Message, bot: TeleBot):
     bot.send_message(message.chat.id, f"Ваш ID Telegram: `{message.chat.id}`",
                      reply_markup=ReplyKeyboardRemove(),
                      parse_mode='markdown')
+
+def command_get_logs_handler(message: Message, bot: TeleBot):
+    if message.chat.id == AllowedGroup.GROUP:
+        with open(log_path, 'r') as file:
+            bot.send_document(message.chat.id, file)
 
 def check_allowed_groups_handler(chat_member: ChatMemberUpdated, bot: TeleBot):
     # Проверяет на добавление бота в группу и направляет запрос подтверждения владельцу.
@@ -62,6 +68,7 @@ def register_core_handlers(bot: TeleBot):
     bot.register_message_handler(command_start, commands=['start'], pass_bot=True, chat_types=['private'])
     bot.register_message_handler(command_my_id_handler, commands=['my_id'], pass_bot=True, chat_types=['private'])
     bot.register_message_handler(command_clean_handler, commands=['clean'], pass_bot=True, chat_types=['group'])
+    bot.register_message_handler(command_get_logs_handler, commands=['get_logs'], pass_bot=True, chat_types=['group'])
     bot.register_my_chat_member_handler(check_allowed_groups_handler, chat_types="group", pass_bot=True)
     bot.register_callback_query_handler(chat_join_confrim_handler, func=None,
                                         chat_confirm=chat_template_data.filter(), pass_bot=True)

@@ -58,6 +58,6 @@ def back_keyboard(add_button: str = None):
 
 def confirm_keyboard():
     markup = ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
-    markup.add(KeyboardButton(ButtonTexts.CONFIRM_BTN),
+    markup.add(KeyboardButton(ButtonTexts.CONFIRM_BTN, request_contact=True),
                KeyboardButton(ButtonTexts.CANCEL_BTN))
     return markup

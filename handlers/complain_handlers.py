@@ -35,7 +35,9 @@ def issue_description_state_handler(message: Message, bot: TeleBot):
     issue_text = message.text
     bot.add_data(message.from_user.id, message.chat.id, issue_text=issue_text)
     bot.send_message(message.chat.id, text=f"*Текст вашего запроса*:\n\"{issue_text}\"\n\n"
-                                           f"Подтвердите отправку оператору.",
+                                           f"Подтвердите отправку оператору.\n"
+                                           f"*При подтверждении у вас будет запрошена информация о вашем "
+                                           f"контакте для обратной связи с вами!*",
                      parse_mode='markdown',
                      reply_markup=confirm_keyboard())
 
@@ -49,7 +51,7 @@ def confirm_btn_handler(message: Message, bot: TeleBot):
     bot.send_message(AllowedGroup.GROUP, MessageTexts.TECH_SUPPORT_MESSAGE.format(
         id=message.from_user.id, first_name=message.from_user.first_name,
         last_name=message.from_user.last_name, nickname=message.from_user.username,
-        phone_number='',
+        phone_number=message.contact.phone_number,
         reply_command=IssueButtons.ANOTHER_ISSUE_BTN, comment=issue_text
     ), reply_markup=ReplyKeyboardRemove(), parse_mode="markdown")
     # Отправляем сообщение пользователю
@@ -78,7 +80,7 @@ def register_complain_handlers(bot: TeleBot):
                                  state=ComplainStates.dialogue_process_state,
                                  pass_bot=True)
     bot.register_message_handler(confirm_btn_handler,
-                                 is_button=ButtonTexts.CONFIRM_BTN,
+                                 content_types=['contact'],
                                  state=ComplainStates.issue_description_state,
                                  pass_bot=True)
     bot.register_message_handler(cancel_btn_handler,

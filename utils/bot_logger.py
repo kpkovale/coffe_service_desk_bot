@@ -1,9 +1,12 @@
 # Core telebot modules
+import logging
+
 from telebot import logger
 
 # logging level
 from config import LOG_LEVEL, BASE_DIR
 from logging import FileHandler, Formatter
+from logging.handlers import RotatingFileHandler
 import sys
 import os
 
@@ -24,9 +27,9 @@ console_formatter = Formatter(
     datefmt="%Y-%m-%d %H:%M:%S"
 )
 # set file handler
-err_file_handler = FileHandler(log_path)
+err_file_handler = RotatingFileHandler(log_path, maxBytes=1024*1024, backupCount=4, encoding='utf-8')
 err_file_handler.setFormatter(full_formatter)
-err_file_handler.setLevel(LOG_LEVEL)
+err_file_handler.setLevel(logging.ERROR)
 
 # set logger
 logger = logger
